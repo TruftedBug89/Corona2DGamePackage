@@ -1,0 +1,58 @@
+Corona 2D Game:
+start-init Game
+Base Window JPANEL-window.java
+Game game jframe-game.java--Main game loop //http://gameprogrammingpatterns.com/game-loop.html
+player player.java
+game-actual gameplay configuration, and hardcoding using my engine
+
+
+Game Idea:
+  1 Map = Street view
+  2 Map moves when you walk
+  3 You have to dodge contaminated trails and clean your hands in case  you do (stay home)
+  4 Clean Hands in spots
+  5 Continue to next level till end with escalating difficulty and wins points for level passed.
+  Idees en catala;
+  Menu start començes a un quadro
+  los pavos son fluixets, aixo amb un detector de la zona i que bufe la zona del mapa als infectats
+  tens que recoletar les merdes k spawneen a cada quadro
+  pa curarte i tens que posarli mascarilla als finfectats i vacunar-los pa normalitzar-lo, sanniran corrent cap a la afora mes propera to rapid,
+  un contador al joc conta cuans han spawneat i quan has desinfectat - x; no sawnea mes i teu pases
+  una locura seria fer un menu pa que lo jugador clique com a botons les coses i
+
+   lo guapo tame seria ferli acceleracio als personatjes per a un moviment fluit
+
+   i animacions i skins
+
+   i fer lo fondo guapo i les coses be, ara lunic problema seria trobar una sol·lucio per a dibuixar els "paths"
+   menu : animat, rapid, só!, fer-li un cursor com al osu
+   
+Check loop frames per second
+    //            double calc = ((System.currentTimeMillis()-initLoop)/1000);
+    //            System.out.println(calc+"ite:"+iteration+"Should be:"+calc*60);
+    //            iteration++;
+    //        double initLoop = System.currentTimeMillis();
+
+
+
+Hard coded variables on classes
+    ms_per_frame on gamepanel class/loop
+    stroke of the line is set to 8
+    Infected same movement in row is set to 5*random
+    Lenght of path of the infected collision check = set to 50
+    length of the number of lines of the path of infecteed
+    Number of animations on player loadimatges for
+
+
+Map - Managmen,
+
+    Shoul be 7680 x 7680
+    Codezones, code for each zone of the map, INverted axis than java drawing method
+
+Controls:
+    WASD movement
+    P pause
+
+Credits:
+    Dev Alberto Dos Santos Rodríguez
+    Graphic help Wericdks & cdiac431
