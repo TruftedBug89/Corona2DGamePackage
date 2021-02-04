@@ -1,4 +1,7 @@
-package Corona2DGamePackage;
+package Corona2DGamePackage.Objects;
+
+import Corona2DGamePackage.BaseGame.Game;
+import Corona2DGamePackage.Map.BackgroundMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,7 +23,7 @@ public abstract class GameObj {
     public int throwDistance;
 
     public GameObj(String name,  int size, int x, int y, BackgroundMap bgmap){
-        this.height = (int) (size*Game.resolution);
+        this.height = (int) (size* Game.resolution);
         this.width = (int) (size*Game.resolution);
         this.bg = bgmap;
 

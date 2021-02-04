@@ -1,4 +1,8 @@
-package Corona2DGamePackage;
+package Corona2DGamePackage.Objects;
+
+import Corona2DGamePackage.Map.BackgroundMap;
+import Corona2DGamePackage.Player.Infected;
+import Corona2DGamePackage.Player.Player;
 
 import java.awt.*;
 

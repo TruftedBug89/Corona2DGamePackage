@@ -1,4 +1,10 @@
-package Corona2DGamePackage;
+package Corona2DGamePackage.BaseGame;
+
+import Corona2DGamePackage.Map.BackgroundMap;
+import Corona2DGamePackage.Objects.GameObj;
+import Corona2DGamePackage.Objects.Xeringa;
+import Corona2DGamePackage.Player.Infected;
+import Corona2DGamePackage.Player.Player;
 
 import javax.imageio.ImageIO;
 import java.io.File;

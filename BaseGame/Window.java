@@ -1,4 +1,4 @@
-package Corona2DGamePackage;
+package Corona2DGamePackage.BaseGame;
 
 import javax.swing.JFrame;
 

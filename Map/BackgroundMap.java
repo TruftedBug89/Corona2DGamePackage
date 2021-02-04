@@ -1,4 +1,6 @@
-package Corona2DGamePackage;
+package Corona2DGamePackage.Map;
+
+import Corona2DGamePackage.BaseGame.Game;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
