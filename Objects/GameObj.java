@@ -22,34 +22,36 @@ public abstract class GameObj {
     public boolean using;
     public int throwDistance;
 
-    public GameObj(String name,  int size, int x, int y, BackgroundMap bgmap){
-        this.height = (int) (size* Game.resolution);
-        this.width = (int) (size*Game.resolution);
+    public GameObj(String name, int size, int x, int y, BackgroundMap bgmap) {
+        this.height = (int) (size * Game.resolution);
+        this.width = (int) (size * Game.resolution);
         this.bg = bgmap;
 
-        if ( x == -1 && y == -1 ) this.setRandomPostionInBg();
+        if (x == -1 && y == -1) this.setRandomPostionInBg();
         else {
             this.Y = y;
             this.X = x;
         }
         this.using = false;
         this.name = name;
-        this.throwDistance = Game.THROW_DISTANCE;
+        this.pickedUp = false;
+
     }
-    public GameObj(String imgpath,String name,  int size, int x, int y, BackgroundMap bgmap) {//single image
-        this(name,size,x,y,bgmap);
+
+    public GameObj(String imgpath, String name, int size, int x, int y, BackgroundMap bgmap) {//single image
+        this(name, size, x, y, bgmap);
         loadImages(imgpath, null);
 
     }
 
-    public GameObj(String[] imgpaths,String name, int size, int x, int y, BackgroundMap bgmap) {//multiple images
-        this(name,size,x,y,bgmap);
+    public GameObj(String[] imgpaths, String name, int size, int x, int y, BackgroundMap bgmap) {//multiple images
+        this(name, size, x, y, bgmap);
         loadImages(null, imgpaths);
     }
 
 
     public void loadImages(String path, String[] paths) {
-        if ( path.equals(null) ) {
+        if (path.equals(null)) {
             this.animation = new Image[paths.length];
             this.animationCount = 0;
             for (int frame = 0; frame < paths.length; frame++) {
@@ -75,8 +77,8 @@ public abstract class GameObj {
 
     public void drawObject(Graphics g, JPanel panel) {
 
-        if ( this.pickedUp )return;
-        if ( this.image == null ) {
+        if (this.pickedUp) return;
+        if (this.image == null) {
             g.drawImage(this.animation[animationCount], this.X, this.Y, this.width, this.height, panel);
             this.animationCount = this.animationCount == (this.animation.length - 1) ? this.animationCount = 0 : animationCount++;
 
@@ -85,7 +87,7 @@ public abstract class GameObj {
             int y = this.Y + (Game.FRAMEHEIGHT * bg.codeZone[1]);
 //            System.out.println("Drawing "+this.name+" at x:"+x+" and y:"+y);
 
-            g.drawImage(this.image,x, y, this.width, this.height, panel);
+            g.drawImage(this.image, x, y, this.width, this.height, panel);
         }
     }
 
@@ -97,28 +99,22 @@ public abstract class GameObj {
 
     public void setRandomPostionInBg() {
         double random = Math.random();
-        this.setPostion((int) (random * (this.bg.width)),(int) (random * (this.bg.height)));
+        this.setPostion((int) (random * (this.bg.width)), (int) (random * (this.bg.height)));
         System.out.println("obj new abstract pos: " + this.X + "y : " + this.Y);
     }
 
-    public void throwObj(){
-        System.out.println("throwing abstract method");
-    }
-    public boolean objectCollision(int playerX, int playerY,BackgroundMap bg) {
+
+    public boolean objectCollision(int playerX, int playerY, BackgroundMap bg) {
         int x = this.X;
         int y = this.Y;
-        int px = (Game.FRAMEWIDTH * bg.codeZone[0]) + playerX;
-        int py = (Game.FRAMEHEIGHT * bg.codeZone[1]) + playerY;
-
-        System.out.println("x item:"+x +"y item:"+ y +"px "+px+" py "+py+" -distance from to "+Math.sqrt(Math.pow(px - x, 2) + Math.pow(py - y, 2)));
-        return Math.sqrt(Math.pow(px - x, 2) + Math.pow(py - y, 2)) < (this.height);
+        int relx = playerX + Game.FRAMEWIDTH * -this.bg.codeZone[0];
+        int rely = playerY + Game.FRAMEHEIGHT * -this.bg.codeZone[1];
+        return Math.sqrt(Math.pow(relx - x, 2) + Math.pow(rely - y, 2)) < (this.height);
     }
 
     @Override
     public String toString() {
         return this.name;
     }
-
-//    public void drawOnPlayer(int xPos, int yPos);
 
 }

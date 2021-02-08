@@ -13,21 +13,21 @@ import java.util.Arrays;
 import java.util.Hashtable;
 
 public class Infected {
-    static BufferedImage PATH_TEXTURE;
-    int xPos, yPos;
-    int width, height;
-    Image img;
-    String facing;
-    int distWalk;
+    public static BufferedImage PATH_TEXTURE;
+    public int xPos, yPos;
+    public int width, height;
+    public Image img;
+    public String facing;
+    public int distWalk;
 
-    int pathLineSize;
-    int directionTimes;//times that moves in the same direction, has to be static to coordinate the collisions and lines to draw of the path
-    String[] pathLocations;//x and y positions to create a lines
-    String[] pathCollisions;
-    int pathCollisionCount;
-    int pathLocationCount;
-    String[] movements;
-    int nextMove = 0;//move count to change the direction
+    public int pathLineSize;
+    public int directionTimes;//times that moves in the same direction, has to be static to coordinate the collisions and lines to draw of the path
+    public String[] pathLocations;//x and y positions to create a lines
+    public String[] pathCollisions;
+    public int pathCollisionCount;
+    public int pathLocationCount;
+    public String[] movements;
+    public int nextMove = 0;//move count to change the direction
     private static String[] facingList = {"forward", "backwards", "right", "left", "upright", "upleft", "downright", "downleft", "standing"};
 
     private static Hashtable<String, Image> infectedImages = new Hashtable<>();
@@ -52,7 +52,7 @@ public class Infected {
 
     public void updateImage() {
         Image last = null;
-        if ( this.facing.equals("standing") ) {
+        if (this.facing.equals("standing")) {
             this.img = infectedImages.get("forward");
         } else {
             this.img = infectedImages.get(this.facing);
@@ -66,7 +66,7 @@ public class Infected {
         for (int s = 0; s < Infected.facingList.length - 1; s++) {
             BufferedImage img = null;
             try {
-                img = ImageIO.read(new File("src/images/infected.png"));
+                img = ImageIO.read(new File("src/Corona2DGamePackage/images/infected.png"));
             } catch (Exception i) {
                 System.out.println("Can't find infected image" + facingList[s]);
             }
@@ -81,12 +81,12 @@ public class Infected {
     }
 
     public void moveInfected(BackgroundMap bg) {
-        if ( this.movements[0] == null || this.nextMove == this.movements.length ) {
+        if (this.movements[0] == null || this.nextMove == this.movements.length) {
             double randomMovement = Math.random();
             Arrays.fill(this.movements, facingList[(int) (randomMovement * facingList.length)]);
             this.nextMove = 0;
             //get point for drawing path line
-            if ( this.pathLocationCount == this.pathLocations.length ) {
+            if (this.pathLocationCount == this.pathLocations.length) {
                 //move all locations to the left to make space for the next one
                 for (int e = 0; e < this.pathLocationCount - 1; e++) {
                     this.pathLocations[e] = this.pathLocations[e + 1];
@@ -106,66 +106,67 @@ public class Infected {
         int positionRelBgy = ((this.yPos) + (Game.FRAMEHEIGHT * bg.codeZone[1]));
         switch (this.facing) {
             case "forward":
-                if ( positionRelBgy - this.distWalk > 0 && positionRelBgy - this.distWalk < bg.height ) {
+                if (positionRelBgy - this.distWalk > 0 && positionRelBgy - this.distWalk < bg.height) {
                     this.yPos -= this.distWalk;
                 }
                 break;
             case "backwards":
-                if ( positionRelBgy + this.distWalk > 0 && positionRelBgy + this.distWalk < bg.height ) {
+                if (positionRelBgy + this.distWalk > 0 && positionRelBgy + this.distWalk < bg.height) {
                     this.yPos += this.distWalk;
                 }
 
                 break;
             case "right":
-                if ( positionRelBgx + this.distWalk > 0 && positionRelBgx + this.distWalk < bg.width ) {
+                if (positionRelBgx + this.distWalk > 0 && positionRelBgx + this.distWalk < bg.width) {
                     this.xPos += this.distWalk;
                 }
                 break;
             case "left":
-                if ( positionRelBgx - this.distWalk > 0 && positionRelBgx - this.distWalk < bg.width ) {
+                if (positionRelBgx - this.distWalk > 0 && positionRelBgx - this.distWalk < bg.width) {
                     this.xPos -= this.distWalk;
                 }
                 break;
             case "upright":
-                if ( positionRelBgy - this.distWalk > 0 && positionRelBgy - this.distWalk < bg.height ) {
+                if (positionRelBgy - this.distWalk > 0 && positionRelBgy - this.distWalk < bg.height) {
                     this.yPos -= this.distWalk;
                 }
-                if ( positionRelBgx + this.distWalk > 0 && positionRelBgx + this.distWalk < bg.width ) {
+                if (positionRelBgx + this.distWalk > 0 && positionRelBgx + this.distWalk < bg.width) {
                     this.xPos += this.distWalk;
                 }
                 break;
             case "upleft":
-                if ( positionRelBgy - this.distWalk > 0 && positionRelBgy - this.distWalk < bg.height ) {
+                if (positionRelBgy - this.distWalk > 0 && positionRelBgy - this.distWalk < bg.height) {
                     this.yPos -= this.distWalk;
                 }
-                if ( positionRelBgx - this.distWalk > 0 && positionRelBgx - this.distWalk < bg.width ) {
+                if (positionRelBgx - this.distWalk > 0 && positionRelBgx - this.distWalk < bg.width) {
                     this.xPos -= this.distWalk;
                 }
                 break;
             case "downright":
-                if ( positionRelBgy + this.distWalk > 0 && positionRelBgy + this.distWalk < bg.height ) {
+                if (positionRelBgy + this.distWalk > 0 && positionRelBgy + this.distWalk < bg.height) {
                     this.yPos += this.distWalk;
                 }
-                if ( positionRelBgx + this.distWalk > 0 && positionRelBgx + this.distWalk < bg.width ) {
+                if (positionRelBgx + this.distWalk > 0 && positionRelBgx + this.distWalk < bg.width) {
                     this.xPos += this.distWalk;
                 }
                 break;
             case "downleft":
-                if ( positionRelBgy + this.distWalk > 0 && positionRelBgy + this.distWalk < bg.height ) {
+                if (positionRelBgy + this.distWalk > 0 && positionRelBgy + this.distWalk < bg.height) {
                     this.yPos += this.distWalk;
                 }
-                if ( positionRelBgx - this.distWalk > 0 && positionRelBgx - this.distWalk < bg.width ) {
+                if (positionRelBgx - this.distWalk > 0 && positionRelBgx - this.distWalk < bg.width) {
                     this.xPos -= this.distWalk;
                 }
                 break;
         }
         this.updateImage();
         //get collision points for the path
-        if ( this.pathCollisionCount == this.pathCollisions.length ) this.pathCollisionCount = 0;
+        if (this.pathCollisionCount == this.pathCollisions.length) this.pathCollisionCount = 0;
         this.pathCollisions[this.pathCollisionCount] = (this.xPos + "," + this.yPos);
         this.pathCollisionCount++;
 
     }
+
     //drawpath is going to be draw every tick so we only draw the last phat coordinates
     public void drawPath(Graphics g, BackgroundMap bg) {
         Graphics2D g2 = (Graphics2D) g;

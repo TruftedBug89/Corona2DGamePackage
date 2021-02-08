@@ -7,11 +7,11 @@ import java.awt.*;
 import java.io.File;
 
 public class BackgroundMap {
-    Image img;
-    String strZone;
-    int[] codeZone;
-    String properties;
-    int width, height;
+    public Image img;
+    public String strZone;
+    public int[] codeZone;
+    public String properties;
+    public int width, height;
 
     public BackgroundMap(String path) {
 
@@ -21,10 +21,12 @@ public class BackgroundMap {
         this.properties = null;
         this.strZone = "[" + this.codeZone[0] + "," + this.codeZone[1] + "]";
     }
-    public String strZone(){
+
+    public String strZone() {
         return this.strZone = "[" + this.codeZone[0] + "," + this.codeZone[1] + "]";
 
     }
+
     public boolean changeZone(int axis0xand1y, int value) {
         switch (axis0xand1y) {
             case 1:

@@ -12,6 +12,7 @@ public class Window extends JFrame {
         this.windowWidth = width;
         this.windowName = name;
     }
+
     public void configFrame() {
         this.setSize(this.windowWidth, this.windowHeight);
         this.setTitle(this.windowName);

@@ -35,16 +35,17 @@ public class Menu extends JPanel {
         g.drawString(this.fps + " FPS", 50, 20);
 
     }
+
     public void drawMenuButtons(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g.setColor(Color.red);
-        g.drawRect(Game.FRAMEWIDTH/2,Game.FRAMEHEIGHT/2,100,50);
-        startButton = new Rectangle(Game.FRAMEWIDTH/2,Game.FRAMEHEIGHT/2,100,50);
+        g.drawRect(Game.FRAMEWIDTH / 2, Game.FRAMEHEIGHT / 2, 100, 50);
+        startButton = new Rectangle(Game.FRAMEWIDTH / 2, Game.FRAMEHEIGHT / 2, 100, 50);
         //g2.draw(startButton);
         g2.fill(startButton);
-    //g.setColor(new Color(104, 196, 43));
+        //g.setColor(new Color(104, 196, 43));
 
-    //Graphics2D g2 = (Graphics2D) g;
+        //Graphics2D g2 = (Graphics2D) g;
 
     }
 
