@@ -8,12 +8,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Menu extends JPanel {
+    public static Rectangle startButton;
     String name;
     Boolean running;
     BackgroundMap bg;
     int fps;
     boolean paused;
-    public static Rectangle startButton;
 
     public Menu(String name) {
         this.name = name;

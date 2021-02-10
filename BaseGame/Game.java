@@ -1,19 +1,22 @@
 package Corona2DGamePackage.BaseGame;
 
 import Corona2DGamePackage.Map.BackgroundMap;
-import Corona2DGamePackage.Objects.GameObj;
 import Corona2DGamePackage.Objects.Xeringa;
 import Corona2DGamePackage.Player.Infected;
 import Corona2DGamePackage.Player.Player;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 
 public class Game {
+    //    public static final int HP_HEAL_PAPERBATER = 20;
+    public static final int PLAYER_HP = 100;
+    public static final int NUM_INFECTATS = 1;
+    public static final int PLAYERDMGPATH = 1;
+    public static final int THROW_DISTANCE = 200;
     public static Window frame;
     public static GamePanel defaultGame;
     public static double resolution = 0.66;
@@ -21,14 +24,9 @@ public class Game {
     public static final int BG_SIZE_BUG = (int) (35 * resolution);
     public static final int FRAMEHEIGHT = (int) (1080 * resolution);
     public static final int FRAMEWIDTH = (int) (1920 * resolution);
-    //    public static final int HP_HEAL_PAPERBATER = 20;
-    public static final int PLAYER_HP = 100;
     public static final int VEL_MOVIMENT_PLAYER = (int) (5 * resolution);
     public static final int VEL_MOVIMENT_INFECTED = (int) (5 * resolution);
-    public static final int NUM_INFECTATS = 1;
     public static final int TAMANY_OBJECTE_XERINGA = (int) (50 * resolution);
-    public static final int PLAYERDMGPATH = 1;
-    public static final int THROW_DISTANCE = 200;
 
     public static void main(String[] args) {
         //Init frame
@@ -71,24 +69,32 @@ public class Game {
             defaultGame = new GamePanel("Corona2D", player1, infectedPair, xeringes, bg);
             frame.add(defaultGame);
             frame.addMouseListener(new MouseListener() {
-                public void mousePressed(MouseEvent me) { }
-                public void mouseReleased(MouseEvent me) { }
-                public void mouseEntered(MouseEvent me) { }
-                public void mouseExited(MouseEvent me) { }
+                public void mousePressed(MouseEvent me) {
+                }
+
+                public void mouseReleased(MouseEvent me) {
+                }
+
+                public void mouseEntered(MouseEvent me) {
+                }
+
+                public void mouseExited(MouseEvent me) {
+                }
+
                 public void mouseClicked(MouseEvent me) {
                     int x = me.getX();
                     int y = me.getY();
                     if (defaultGame.player.holding != null) {
-                        if (defaultGame.player.holding.using == false) {
-                            defaultGame.player.holding.using = true;
-                        } else {
+//                        if (defaultGame.player.holding.using == false) {
+//                            defaultGame.player.holding.using = true;
+//                        } else {
 //                            defaultGame.fine
-                            System.out.println(MouseInfo.getPointerInfo().getLocation().getX() + "," + MouseInfo.getPointerInfo().getLocation().getY());
-                            defaultGame.player.holding.throwObj(MouseInfo.getPointerInfo().getLocation());
 
-                        }
+                        defaultGame.player.holding.throwObj(defaultGame.player.xPos, defaultGame.player.yPos, defaultGame.getMousePosition().getLocation());
+
                     }
                 }
+
             });
             defaultGame.start();
         } while (defaultGame.running);

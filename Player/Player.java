@@ -1,7 +1,6 @@
 package Corona2DGamePackage.Player;
 
 import Corona2DGamePackage.BaseGame.Game;
-import Corona2DGamePackage.Objects.GameObj;
 import Corona2DGamePackage.Map.BackgroundMap;
 import Corona2DGamePackage.Objects.Xeringa;
 
@@ -14,6 +13,7 @@ import java.io.File;
 import java.util.Hashtable;
 
 public class Player {
+    private static Hashtable<String, Image> playerImages = new Hashtable<>();
     public int xPos;
     public int yPos;
     public int points;
@@ -25,7 +25,6 @@ public class Player {
     public int distWalk;
     public Image img;
     public String facing;
-    private static Hashtable<String, Image> playerImages = new Hashtable<>();
 
 
     public Player(int x, int y, int distWalk) {
@@ -168,7 +167,10 @@ public class Player {
         g.drawImage(this.img, this.xPos, this.yPos, this.width, this.height, null, null);
         if (this.holding != null) {
 //            this.holding.drawOnPlayer(this.xPos,this.yPos);
-            if(this.holding.using)this.holding.use(this,g);
+            if (!this.holding.using) this.holding.use(this, g);
+            else {
+                this.holding.drawObject(g, null);
+            }
         }
 
     }

@@ -2,6 +2,7 @@ package Corona2DGamePackage.Objects;
 
 import Corona2DGamePackage.BaseGame.Game;
 import Corona2DGamePackage.Map.BackgroundMap;
+import Corona2DGamePackage.Player.Infected;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,13 +23,16 @@ public abstract class GameObj {
     public boolean using;
     public int throwDistance;
 
+
     public GameObj(String name, int size, int x, int y, BackgroundMap bgmap) {
         this.height = (int) (size * Game.resolution);
         this.width = (int) (size * Game.resolution);
         this.bg = bgmap;
 
-        if (x == -1 && y == -1) this.setRandomPostionInBg();
+//        if (x == -1 && y == -1) this.setRandomPostionInBg();
+        if (x == -1 && y == -1) this.Y = this.X = 600;
         else {
+
             this.Y = y;
             this.X = x;
         }
@@ -107,8 +111,8 @@ public abstract class GameObj {
     public boolean objectCollision(int playerX, int playerY, BackgroundMap bg) {
         int x = this.X;
         int y = this.Y;
-        int relx = playerX + Game.FRAMEWIDTH * -this.bg.codeZone[0];
-        int rely = playerY + Game.FRAMEHEIGHT * -this.bg.codeZone[1];
+        int relx = playerX + (Game.FRAMEWIDTH * bg.codeZone[0]);
+        int rely = playerY + (Game.FRAMEWIDTH * bg.codeZone[1]);
         return Math.sqrt(Math.pow(relx - x, 2) + Math.pow(rely - y, 2)) < (this.height);
     }
 
@@ -117,4 +121,11 @@ public abstract class GameObj {
         return this.name;
     }
 
+//    public void hitInfected(Infected each) {
+//        int x = this.X;
+//        int y = this.Y;
+//        int relx = each.xPos + (Game.FRAMEWIDTH * bg.codeZone[0]);
+//        int rely = each.yPos + (Game.FRAMEWIDTH * bg.codeZone[1]);
+//        return Math.sqrt(Math.pow(relx - x, 2) + Math.pow(rely - y, 2)) < (this.height);
+//    }
 }

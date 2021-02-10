@@ -14,16 +14,15 @@ import java.awt.event.KeyListener;
 
 public class GamePanel extends JPanel implements KeyListener {
 
-    private boolean[] keys = new boolean[256];
     Infected[] infected;
     String name;
     Boolean running;
     Player player;
     BackgroundMap bg;
     GameObj[] xringes;
-
     int fps;
     boolean paused;
+    private boolean[] keys = new boolean[256];
 
     public GamePanel(String name, Player player, Infected[] infected, Xeringa[] xringes, BackgroundMap bg) {
         this.name = name;
@@ -180,11 +179,13 @@ public class GamePanel extends JPanel implements KeyListener {
         }
         //Check collisions with objects
         for (int e = 0; e < this.xringes.length; e++) {
-//            for (Infected each : this.infected) {
-//                if ( this.items[e].objectCollision(this.player.xPos, this.player.yPos, this.bg) ) {
-//                    this.items[e].hitInfected(each);
-//                }
-//            }
+            for (Infected each : this.infected) {
+                if ( this.xringes[e].objectCollision(each.xPos, each.yPos, this.bg) ) {
+                    each.healed = true;
+
+//                    this.xringes[e].hitInfected(each);
+                }
+            }
 //            System.out.println(obj.objectCollision(this.player.xPos, this.player.yPos));
             if (!this.xringes[e].pickedUp) {
                 if (this.xringes[e].objectCollision(this.player.xPos, this.player.yPos, this.bg)) {

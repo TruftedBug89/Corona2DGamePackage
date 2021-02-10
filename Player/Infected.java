@@ -14,12 +14,13 @@ import java.util.Hashtable;
 
 public class Infected {
     public static BufferedImage PATH_TEXTURE;
+    private static String[] facingList = {"forward", "backwards", "right", "left", "upright", "upleft", "downright", "downleft", "standing"};
+    private static Hashtable<String, Image> infectedImages = new Hashtable<>();
     public int xPos, yPos;
     public int width, height;
     public Image img;
     public String facing;
     public int distWalk;
-
     public int pathLineSize;
     public int directionTimes;//times that moves in the same direction, has to be static to coordinate the collisions and lines to draw of the path
     public String[] pathLocations;//x and y positions to create a lines
@@ -28,12 +29,11 @@ public class Infected {
     public int pathLocationCount;
     public String[] movements;
     public int nextMove = 0;//move count to change the direction
-    private static String[] facingList = {"forward", "backwards", "right", "left", "upright", "upleft", "downright", "downleft", "standing"};
-
-    private static Hashtable<String, Image> infectedImages = new Hashtable<>();
+    public boolean healed;
 
 
     public Infected(int x, int y, int distWalk) {
+        this.healed = false;
         this.distWalk = distWalk;
         this.xPos = x;
         this.yPos = y;
@@ -48,17 +48,6 @@ public class Infected {
         this.pathLocationCount = 0;
         this.pathCollisionCount = 0;
 
-    }
-
-    public void updateImage() {
-        Image last = null;
-        if (this.facing.equals("standing")) {
-            this.img = infectedImages.get("forward");
-        } else {
-            this.img = infectedImages.get(this.facing);
-        }
-        this.width = (int) (this.img.getWidth(null) * Game.resolution);
-        this.height = (int) (this.img.getHeight(null) * Game.resolution);
     }
 
     public static void loadImages() {
@@ -80,22 +69,35 @@ public class Infected {
         }
     }
 
+    public void updateImage() {
+        Image last = null;
+        if (this.facing.equals("standing")) {
+            this.img = infectedImages.get("forward");
+        } else {
+            this.img = infectedImages.get(this.facing);
+        }
+        this.width = (int) (this.img.getWidth(null) * Game.resolution);
+        this.height = (int) (this.img.getHeight(null) * Game.resolution);
+    }
+
     public void moveInfected(BackgroundMap bg) {
         if (this.movements[0] == null || this.nextMove == this.movements.length) {
             double randomMovement = Math.random();
             Arrays.fill(this.movements, facingList[(int) (randomMovement * facingList.length)]);
             this.nextMove = 0;
             //get point for drawing path line
-            if (this.pathLocationCount == this.pathLocations.length) {
-                //move all locations to the left to make space for the next one
-                for (int e = 0; e < this.pathLocationCount - 1; e++) {
-                    this.pathLocations[e] = this.pathLocations[e + 1];
-                }
-                this.pathLocations[this.pathLocationCount - 1] = ((this.xPos + 27) + "," + (this.yPos + 27));
+            if (!this.healed) {
+                if (this.pathLocationCount == this.pathLocations.length) {
+                    //move all locations to the left to make space for the next one
+                    for (int e = 0; e < this.pathLocationCount - 1; e++) {
+                        this.pathLocations[e] = this.pathLocations[e + 1];
+                    }
+                    this.pathLocations[this.pathLocationCount - 1] = ((this.xPos + 27) + "," + (this.yPos + 27));
 
-            } else {
-                this.pathLocations[this.pathLocationCount] = ((this.xPos + 27) + "," + (this.yPos + 27));
-                this.pathLocationCount++;
+                } else {
+                    this.pathLocations[this.pathLocationCount] = ((this.xPos + 27) + "," + (this.yPos + 27));
+                    this.pathLocationCount++;
+                }
             }
 
         }
@@ -169,6 +171,7 @@ public class Infected {
 
     //drawpath is going to be draw every tick so we only draw the last phat coordinates
     public void drawPath(Graphics g, BackgroundMap bg) {
+        if (this.healed)return;
         Graphics2D g2 = (Graphics2D) g;
         TexturePaint tp = new TexturePaint(Infected.PATH_TEXTURE, new Rectangle(0, 0, 20, 20));
         g2.setPaint(tp);
