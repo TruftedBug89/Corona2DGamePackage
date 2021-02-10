@@ -18,7 +18,7 @@ public class Xeringa extends GameObj {
 
     public Xeringa(String imgpath, String name, int size, int x, int y, BackgroundMap bgmap) {
         super(imgpath, name, size, x, y, bgmap);
-        this.throwDistance = Game.THROW_DISTANCE;
+        this.throwDistance = Game.THROW_DISTANCE*2;
     }
 
     public Xeringa(String[] imgpaths, String name, int size, int x, int y, BackgroundMap bgmap) {
@@ -48,9 +48,17 @@ public class Xeringa extends GameObj {
                 g.drawImage(this.image, x, y, this.width, this.height, panel);
             }
         }
+        you want y = 200 when x is 500
+        it starts at 0,0
+
+        200-0/500-0
+                = 0.4f
+
+        therefore through cross multiplying we get
+        2x = 5y
         if (this.using) {
-            int x = this.X + (Game.FRAMEWIDTH * bg.codeZone[0]);
-            int y = this.Y + (Game.FRAMEHEIGHT * bg.codeZone[1]);
+            int x = this.X;
+            int y = this.Y;
             if (x == this.startEndCoords[2] && y == this.startEndCoords[3]) {
                 this.using = false;
             } else {
@@ -67,10 +75,10 @@ public class Xeringa extends GameObj {
         if (!this.using) {
             if ( Math.sqrt(Math.pow(playerx - mouseCoordinates.getX(), 2) + Math.pow(playery - mouseCoordinates.getY(), 2)) > (this.throwDistance))return;
             this.using = true;
-            this.startEndCoords = new int[]{playerx + (Game.FRAMEWIDTH * bg.codeZone[0]),
-                    playery + (Game.FRAMEHEIGHT * bg.codeZone[1]),
-                    (int) mouseCoordinates.getX() + (Game.FRAMEWIDTH * bg.codeZone[0]),
-                    (int) mouseCoordinates.getY() + (Game.FRAMEHEIGHT * bg.codeZone[1])};//
+            this.startEndCoords = new int[]{playerx ,
+                    playery ,
+                    (int) mouseCoordinates.getX(),
+                    (int) mouseCoordinates.getY()};//
             this.X = this.startEndCoords[0];
             this.Y = this.startEndCoords[1];
             this.throwXSpeed = (this.startEndCoords[2] > this.startEndCoords[0]) ? throwSpeed : -throwSpeed;

@@ -167,6 +167,7 @@ public class GamePanel extends JPanel implements KeyListener {
 
         //Check collisions with infected
         for (Infected each : this.infected) {
+            if(each.healed)continue;
             for (int pos = 0; pos < each.pathCollisions.length; pos++) {
                 if (each.pathCollisions[pos] != null) {
                     String[] xy = each.pathCollisions[pos].split(",");

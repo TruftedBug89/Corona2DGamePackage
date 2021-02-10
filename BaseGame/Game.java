@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Game {
     //    public static final int HP_HEAL_PAPERBATER = 20;
     public static final int PLAYER_HP = 100;
-    public static final int NUM_INFECTATS = 1;
+    public static final int NUM_INFECTATS = 10;
     public static final int PLAYERDMGPATH = 1;
     public static final int THROW_DISTANCE = 200;
     public static Window frame;
